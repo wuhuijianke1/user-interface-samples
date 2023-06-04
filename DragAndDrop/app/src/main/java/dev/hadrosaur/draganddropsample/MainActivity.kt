@@ -18,6 +18,7 @@ package dev.hadrosaur.draganddropsample
 
 import android.content.ClipData
 import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.BitmapDrawable
@@ -64,11 +65,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainConstraintLayout)
 
         binding.buttonNewTask.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-            })
+            startTestActivity()
+//            startActivity(Intent(this, MainActivity::class.java).apply {
+//                addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
+//                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+//            })
         }
 
         // Use the DragStartHelper class to easily support initiating drag and drop in response to
@@ -166,6 +168,14 @@ class MainActivity : AppCompatActivity() {
         binding.buttonClear.setOnClickListener {
             resetDropTarget()
         }
+    }
+
+    private fun startTestActivity() {
+        val intent = Intent().apply {
+            component = ComponentName("dev.hadrosaur.draganddropsample",
+                "dev.hadrosaur.draganddropsample.ReceiveActionSendActivity")
+        }
+        startActivity(intent)
     }
 
     private fun handlePlainTextDrop(item: ClipData.Item) {
